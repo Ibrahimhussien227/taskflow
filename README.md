@@ -7,7 +7,7 @@ It provides seamless project and task management with live updates powered by **
 
 ## 🔑 Demo Login
 
-[Demo](https://taskflow-two.vercel.app).
+[Demo](https://taskflow-two.vercel.app)
 
 You can log in using the following **demo credentials**:
 
