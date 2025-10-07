@@ -47,7 +47,7 @@ async function createTask(projectId, task) {
 async function patchTask(projectId, taskId, task) {
     try {
         const res = await fetch(`${configs_1.API_URL}/projects/${projectId}/tasks/${taskId}`, {
-            method: "PAtCH",
+            method: "PATCH",
             credentials: "include",
             headers: {
                 "Content-Type": "application/json",

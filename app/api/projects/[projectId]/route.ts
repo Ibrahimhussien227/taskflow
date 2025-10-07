@@ -33,10 +33,10 @@ export async function GET(
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { projectId: string } }
+  context: { params: Promise<{ projectId: string }> }
 ) {
   try {
-    const { projectId } = params;
+    const { projectId } = await context.params;
     const updates = await req.json();
     if (updates.budget !== undefined) {
       updates.budget = Number(updates.budget);
@@ -65,10 +65,11 @@ export async function PATCH(
 }
 export async function DELETE(
   _req: NextRequest,
-  { params }: { params: { projectId: string } }
+  context: { params: Promise<{ projectId: string }> }
 ) {
   try {
-    const { projectId } = params;
+    const { projectId } = await context.params;
+
     await prisma.project.delete({ where: { id: projectId } });
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (err) {

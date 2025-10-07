@@ -41,8 +41,14 @@ export default function LoginForm() {
       await login(data).unwrap();
 
       router.push("/dashboard");
-    } catch (err: any) {
-      setError(err.data.error || "Login failed");
+    } catch (err) {
+      // Safe handling for unknown errors
+      if (typeof err === "object" && err !== null && "data" in err) {
+        const e = err as { data?: { error?: string } };
+        setError(e.data?.error || "Login failed");
+      } else {
+        setError("Login failed");
+      }
     }
   };
 
