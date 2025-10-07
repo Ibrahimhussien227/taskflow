@@ -1,36 +1,161 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ⚡ Feature-Rich Project Management Dashboard
 
-## Getting Started
+A **modern, real-time project management dashboard** built with **Next.js 15**, **React 19**, and **TypeScript**.  
+It provides seamless project and task management with live updates powered by **Socket.IO**, **React Query**, **Redux Toolkit Query**, and **ShadCN UI** components.
 
-First, run the development server:
+---
+
+## 🔑 Demo Login
+
+You can log in using the following **demo credentials**:
+
+Email: admin@example.com
+Password: 1234
+
+- ⚠️ This is a **fake authentication system** — credentials are for demo purposes only.
+- No real backend or sensitive data is involved.
+
+## 🚀 Features
+
+### 🧩 Core Functionality
+
+- 📊 **Dashboard Overview**
+  - Interactive charts showing project progress and completion rates.
+  - Real-time project updates synced via Socket.IO.
+- 📁 **Projects Management**
+  - Create, edit, and track projects with live data binding.
+  - Inline updates for fields like status, budget, and progress.
+- ✅ **Task Management**
+  - Add, edit, and delete tasks per project.
+  - Task forms with full validation (Yup + React Hook Form).
+  - Filter and search tasks easily in a responsive table.
+- 🔄 **Real-Time Sync**
+  - Tasks and projects automatically update across clients using Socket.IO.
+- 💾 **Persistent Data**
+  - Mock/fake backend API using Next.js API routes (perfect for frontend-only demos).
+- 🧠 **Optimized State Management**
+  - React Query handles caching, mutations, and optimistic UI updates.
+
+---
+
+## 🛠️ Tech Stack
+
+| Category           | Technology                                                                             |
+| ------------------ | -------------------------------------------------------------------------------------- |
+| Framework          | [Next.js 15](https://nextjs.org)                                                       |
+| Language           | [TypeScript](https://www.typescriptlang.org/)                                          |
+| UI Library         | [ShadCN UI](https://ui.shadcn.com)                                                     |
+| Styling            | [Tailwind CSS](https://tailwindcss.com)                                                |
+| State Management   | [React Query](https://tanstack.com/query)                                              |
+| Realtime           | [Socket.IO](https://socket.io)                                                         |
+| Forms & Validation | [React Hook Form](https://react-hook-form.com) + [Yup](https://github.com/jquense/yup) |
+
+---
+
+## ⚙️ Setup Instructions
+
+### 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/<your-username>/feature-rich.git
+cd feature-rich
+```
+
+### 2️⃣ Install Dependencies
+
+```bash
+npm install
+# or
+yarn install
+```
+
+### 3️⃣ Run the Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🔌 Real-Time Socket Setup
 
-## Learn More
+The app initializes a Socket.IO server in:
 
-To learn more about Next.js, take a look at the following resources:
+```
+/lib/socket/server.ts
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+and connects from the client via:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+/lib/socket/client.ts
+```
 
-## Deploy on Vercel
+All task changes (create, edit, delete) emit live events:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `task_created`
+- `task_updated`
+- `task_deleted`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+So other connected clients receive instant updates.
+
+---
+
+## 🧩 API Routes (Fake Backend)
+
+| Method   | Endpoint                                 | Description               |
+| -------- | ---------------------------------------- | ------------------------- |
+| `GET`    | `/api/projects`                          | Fetch all projects        |
+| `GET`    | `/api/projects/:projectId`               | Get single project        |
+| `PATCH`  | `/api/projects/:projectId`               | Update project            |
+| `GET`    | `/api/projects/:projectId/tasks`         | Fetch tasks for a project |
+| `POST`   | `/api/projects/:projectId/tasks`         | Create a new task         |
+| `PATCH`  | `/api/projects/:projectId/tasks/:taskId` | Edit a task               |
+| `DELETE` | `/api/projects/:projectId/tasks/:taskId` | Delete a task             |
+
+---
+
+## 🧠 Design Principles
+
+- **Fully client-driven** UI for fast UX.
+- **Optimistic updates** for task mutations.
+- **Reusable hooks** for modularity.
+- **Separation of concerns:** UI, logic, and data layers are cleanly split.
+- **Type-safe** with strict TypeScript types for all entities.
+
+---
+
+## 🌈 UI Preview
+
+> Example screens include:
+
+- Dashboard with live charts
+- Project list with inline editing
+- Task management table with modal form
+- Realtime update indicators
+
+---
+
+## 💡 Future Improvements
+
+- 🔐 Add authentication & roles (Admin, Manager, Developer)
+- ☁️ Connect to a real backend (Express / Prisma / Supabase)
+- 📱 Mobile-friendly dashboard layout
+- 🧾 Export reports to PDF or Excel
+
+---
+
+## 🤝 Contributing
+
+Pull requests are welcome!  
+If you’d like to suggest an improvement or fix a bug:
+
+1. Fork the repo
+2. Create a new branch (`feature/improvement-name`)
+3. Submit a PR 🎉
+
+---
+
+**Made with ❤️ using Next.js 15, React 19, and Socket.IO**
