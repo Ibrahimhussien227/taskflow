@@ -4,15 +4,16 @@ let socket: Socket | null = null;
 
 export function getSocket(): Socket {
   if (!socket) {
-    const socketUrl =
-      typeof window !== "undefined"
-        ? `${window.location.protocol}//${window.location.host}`
-        : "http://localhost:4000";
+    const baseUrl =
+      process.env.NEXT_PUBLIC_API_BASE_URL?.replace("/api", "") ||
+      window.location.origin;
 
-    socket = io(socketUrl, {
+    socket = io(baseUrl, {
+      path: "/api/socket",
       transports: ["websocket"],
       autoConnect: true,
     });
   }
+
   return socket;
 }

@@ -3,11 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"npm run dev:next\" \"npm run dev:server\"",
-    "dev:next": "next dev",
-    "dev:server": "tsc -p tsconfig.server.json && node dist/server.js",
-    "build": "next build && tsc -p tsconfig.server.json",
-    "start": "next start & node dist/server.js"
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

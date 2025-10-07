@@ -8,7 +8,7 @@ function initIO(server) {
     if (!io) {
         io = new socket_io_1.Server(server, {
             cors: {
-                origin: "http://localhost:3000",
+                origin: process.env.NEXT_PUBLIC_API_URL,
                 methods: ["GET", "POST", "PATCH", "DELETE"],
             },
         });

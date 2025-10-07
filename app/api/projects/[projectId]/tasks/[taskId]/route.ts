@@ -1,17 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { prisma } from "@/lib/prisma";
-
-async function emitEvent<T>(event: string, data: T): Promise<void> {
-  try {
-    const { getIO } = await import("@/lib/socket/server");
-    const io = getIO();
-    io.emit(event, data);
-    console.log(`📦 Emitted ${event}:`, data);
-  } catch (err) {
-    console.warn(`Socket emit failed for ${event}:`, err);
-  }
-}
+import { getIO } from "@/lib/socket/io";
 
 export async function PATCH(
   req: Request,
@@ -31,7 +21,7 @@ export async function PATCH(
       },
     });
 
-    await emitEvent("task_updated", updatedTask);
+    getIO()?.emit("task:updated", updatedTask);
 
     return NextResponse.json(updatedTask);
   } catch (error) {
@@ -54,7 +44,7 @@ export async function DELETE(
       where: { id: taskId },
     });
 
-    await emitEvent("task_deleted", deletedTask);
+    getIO()?.emit("task:deleted", deletedTask.id);
 
     return NextResponse.json(deletedTask, { status: 200 });
   } catch (error) {

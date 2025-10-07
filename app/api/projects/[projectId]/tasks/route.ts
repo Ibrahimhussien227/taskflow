@@ -1,18 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { prisma } from "@/lib/prisma";
-
-async function emitEvent<T>(event: string, data: T): Promise<void> {
-  try {
-    const { getIO } = await import("@/lib/socket/server");
-
-    const io = getIO();
-    io.emit(event, data);
-    console.log(`📦 Emitted ${event}:`, data);
-  } catch (err) {
-    console.warn(`Socket emit failed for ${event}:`, err);
-  }
-}
+import { getIO } from "@/lib/socket/io";
 
 export async function GET(
   _req: Request,
@@ -54,7 +43,7 @@ export async function POST(
       },
     });
 
-    await emitEvent("task_created", task);
+    getIO()?.emit("task:created", task);
 
     return NextResponse.json(task, { status: 201 });
   } catch (error) {
